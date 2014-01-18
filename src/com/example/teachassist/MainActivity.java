@@ -8,10 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
 public class MainActivity extends Activity {
 
 	EditText username, password;
-	Button save;
+	Button login;
+	
+	public static String usernameString;
+	public static String passwordString;
 	
 	
 	@Override
@@ -21,17 +25,17 @@ public class MainActivity extends Activity {
 		
 		username = (EditText) findViewById(R.id.etUsername);
 		username.setInputType(InputType.TYPE_CLASS_TEXT);
-		String usernameString = username.getText().toString();
 		
 		password = (EditText) findViewById(R.id.etPassword);
-		password.setInputType(InputType.TYPE_CLASS_TEXT);
-		String passwordString = password.getText().toString();
+		password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		
-		save = (Button) findViewById(R.id.bSave);
+		login = (Button) findViewById(R.id.bLogin);
 		
-		save.setOnClickListener(new View.OnClickListener() {
+		login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v){
-				
+				usernameString = username.getText().toString();
+				passwordString = password.getText().toString();
+
 				Intent i = new Intent(MainActivity.this, Browser.class);
 				startActivity(i);
 			}

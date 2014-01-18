@@ -3,12 +3,14 @@ package com.example.teachassist;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class Browser extends Activity{
 
-    private WebView web;
+    public WebView web;
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@SuppressWarnings("deprecation")
@@ -27,6 +29,18 @@ public class Browser extends Activity{
                 "Safari/537.31");
         web.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
         web.loadUrl("http://ta.yrdsb.ca/yrdsb/");
+        
+        web.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+               String username=MainActivity.usernameString;
+               String password=MainActivity.passwordString;
+               
+               view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"+username+"'");
+               view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'");
+               view.loadUrl("javascript:(function() { document.getElementsByName('submit')[0].click()})()");
+                           		   
+            }
+         });
 
 	}
 
