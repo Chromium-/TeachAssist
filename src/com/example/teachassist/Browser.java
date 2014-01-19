@@ -27,7 +27,10 @@ public class Browser extends Activity{
                 "WOW64) AppleWebKit/537.31 " +
                 "(KHTML, like Gecko) Chrome/20 " +
                 "Safari/537.31");
-        web.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+        web.clearCache(true);
+        web.clearFormData();
+        web.clearHistory();                     
+        
         web.loadUrl("http://ta.yrdsb.ca/yrdsb/");
         
         web.setWebViewClient(new WebViewClient() {
@@ -37,8 +40,8 @@ public class Browser extends Activity{
                
                view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"+username+"'");
                view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'");
-               view.loadUrl("javascript:(function() { document.getElementsByName('submit')[0].click()})()");
-                           		   
+
+               view.loadUrl("javascript:(function(){document.forms['loginForm'].submit();})");	   
             }
          });
 
