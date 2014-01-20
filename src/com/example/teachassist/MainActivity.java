@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -41,8 +42,14 @@ public class MainActivity extends Activity {
 				usernameString = username.getText().toString();
 				passwordString = password.getText().toString();
 
+				if (usernameString.length()!=0 && passwordString.length()!=0) {
 				Intent i = new Intent(MainActivity.this, Browser.class);
 				startActivity(i);
+				}
+				else {
+				Toast.makeText(getApplicationContext(), "Please enter a username and password",
+				Toast.LENGTH_SHORT).show();					
+				}
 			}
 		});
 				
