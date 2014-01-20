@@ -2,7 +2,10 @@ package com.example.teachassist;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,21 +30,35 @@ public class Browser extends Activity{
                 "WOW64) AppleWebKit/537.31 " +
                 "(KHTML, like Gecko) Chrome/20 " +
                 "Safari/537.31");
+        
+        if (Build.VERSION.SDK_INT <= 17) {
+            web.getSettings().setSavePassword(false);
+        } 
+        else {
+            //webview cant save passwords in 4.4+ so no need to do anything
+        }
+        
         web.clearCache(true);
         web.clearFormData();
-        web.clearHistory();                     
+        web.clearHistory();
+        
+        CookieSyncManager.createInstance(this);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
         
         web.loadUrl("http://ta.yrdsb.ca/yrdsb/");
         
         web.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
-               String username=MainActivity.usernameString;
-               String password=MainActivity.passwordString;
+            	
+              String username=MainActivity.usernameString;
+              String password=MainActivity.passwordString;
                
-               view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"+username+"'");
-               view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'");
-
-               view.loadUrl("javascript:(function(){document.forms['loginForm'].submit();})");	   
+              view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"+username+"'");
+              view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'");
+              view.loadUrl("javascript:document.createElement('form').submit.apply( document.getElementById('loginForm') );");
+               
+               
             }
          });
 
