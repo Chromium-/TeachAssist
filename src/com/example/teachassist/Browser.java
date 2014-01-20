@@ -73,7 +73,7 @@ public class Browser extends Activity{
               view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'");
               view.loadUrl("javascript:document.createElement('form').submit.apply( document.getElementById('loginForm') );");
               
-              if (loading.isShowing()) {
+              if (web.getProgress()>=100) {
             	  loading.dismiss();
               }
               
