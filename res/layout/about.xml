@@ -15,7 +15,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:text="TeachAssist - Version 0.1"
+    android:text="TeachAssist - Version 0.2"
     android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
