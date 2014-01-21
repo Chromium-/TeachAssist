@@ -71,8 +71,8 @@ public class MainActivity extends Activity {
 	            }
 	            
 				if (usernameString.length()!=0 && passwordString.length()!=0) {
-				    Intent i = new Intent(MainActivity.this, Browser.class);
-				    startActivity(i);
+				    Intent browser = new Intent(MainActivity.this, Browser.class);
+				    startActivity(browser);
 				}
 				else {
 				    Toast.makeText(getApplicationContext(), "Please enter a username and password",
@@ -96,12 +96,22 @@ public class MainActivity extends Activity {
 	         openAbout();
 	         return true;
 	    }
+		else if (menuItem.getItemId() == R.id.menu_exit) {
+			exit();
+			return true;
+		}
 	    return false;
 	}
 	
     private void openAbout() {
-    	Intent j = new Intent(MainActivity.this, About.class);
-		startActivity(j);
+    	Intent about = new Intent(MainActivity.this, About.class);
+		startActivity(about);
     }
     
+    private void exit() {
+    	Intent exit = new Intent(Intent.ACTION_MAIN);
+    	exit.addCategory(Intent.CATEGORY_HOME);
+    	exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	startActivity(exit);
+    }
 }
