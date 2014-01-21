@@ -28,21 +28,15 @@ public class Browser extends Activity{
         web = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = web.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        web.getSettings().setSaveFormData(false);
+        web.getSettings().setSavePassword(false);
         web.getSettings().setUserAgentString("Mozilla/5.0 " +
                 "(Windows NT 6.2; " +
                 "WOW64) AppleWebKit/537.31 " +
                 "(KHTML, like Gecko) Chrome/20 " +
                 "Safari/537.31");
-        
-        if (Build.VERSION.SDK_INT <= 17) {
-            web.getSettings().setSavePassword(false);
-        } 
-        else {
-            //webview cant save passwords in 4.4+ so no need to do anything
-        }
-        
+
         web.clearCache(true);
-        web.clearFormData();
         web.clearHistory();
         
         CookieSyncManager.createInstance(this);

@@ -25,12 +25,13 @@ public final class R {
         public static final int ta=0x7f020001;
     }
     public static final class id {
-        public static final int bLogin=0x7f080003;
+        public static final int bLogin=0x7f080004;
+        public static final int cbRemember=0x7f080003;
         public static final int etPassword=0x7f080002;
         public static final int etUsername=0x7f080001;
         public static final int git=0x7f080000;
-        public static final int menu_about=0x7f080005;
-        public static final int webview=0x7f080004;
+        public static final int menu_about=0x7f080006;
+        public static final int webview=0x7f080005;
     }
     public static final class layout {
         public static final int about=0x7f030000;

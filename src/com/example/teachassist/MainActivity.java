@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,6 +22,11 @@ public class MainActivity extends Activity {
 	EditText username, password;
 	Button login;
 	
+	CheckBox rememberCheckBox;
+	SharedPreferences loginCredentials;
+	SharedPreferences.Editor loginCredentialsEditor;
+	Boolean remember;
+	    
 	public static String usernameString;
 	public static String passwordString;
 	
@@ -34,14 +41,36 @@ public class MainActivity extends Activity {
 		
 		password = (EditText) findViewById(R.id.etPassword);
 		password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		
+
+	    rememberCheckBox = (CheckBox)findViewById(R.id.cbRemember);
+	    loginCredentials = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+	    loginCredentialsEditor = loginCredentials.edit();
+
+	    remember = loginCredentials.getBoolean("remember", false);
+	        if (remember == true) {
+	        	username.setText(loginCredentials.getString("username", ""));
+	        	password.setText(loginCredentials.getString("password", ""));
+	        	rememberCheckBox.setChecked(true);
+	        }	    
+	    
 		login = (Button) findViewById(R.id.bLogin);
 		
 		login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v){
+				
 				usernameString = username.getText().toString();
 				passwordString = password.getText().toString();
 
+	            if (rememberCheckBox.isChecked()) {
+	            	loginCredentialsEditor.putBoolean("remember", true);
+	            	loginCredentialsEditor.putString("username", usernameString);
+	            	loginCredentialsEditor.putString("password", passwordString);
+	            	loginCredentialsEditor.commit();
+	            } else {
+	            	loginCredentialsEditor.clear();
+	            	loginCredentialsEditor.commit();
+	            }
+	            
 				if (usernameString.length()!=0 && passwordString.length()!=0) {
 				Intent i = new Intent(MainActivity.this, Browser.class);
 				startActivity(i);
