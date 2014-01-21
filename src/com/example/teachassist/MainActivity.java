@@ -16,7 +16,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 public class MainActivity extends Activity {
 
 	EditText username, password;
@@ -28,8 +27,7 @@ public class MainActivity extends Activity {
 	Boolean remember;
 	    
 	public static String usernameString;
-	public static String passwordString;
-	
+	public static String passwordString;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,18 +64,19 @@ public class MainActivity extends Activity {
 	            	loginCredentialsEditor.putString("username", usernameString);
 	            	loginCredentialsEditor.putString("password", passwordString);
 	            	loginCredentialsEditor.commit();
-	            } else {
+	            } 
+	            else {
 	            	loginCredentialsEditor.clear();
 	            	loginCredentialsEditor.commit();
 	            }
 	            
 				if (usernameString.length()!=0 && passwordString.length()!=0) {
-				Intent i = new Intent(MainActivity.this, Browser.class);
-				startActivity(i);
+				    Intent i = new Intent(MainActivity.this, Browser.class);
+				    startActivity(i);
 				}
 				else {
-				Toast.makeText(getApplicationContext(), "Please enter a username and password",
-				Toast.LENGTH_SHORT).show();					
+				    Toast.makeText(getApplicationContext(), "Please enter a username and password",
+				    Toast.LENGTH_SHORT).show();					
 				}
 			}
 		});
@@ -94,8 +93,8 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 		if (menuItem.getItemId() == R.id.menu_about) {
-	            openAbout();
-	            return true;
+	         openAbout();
+	         return true;
 	    }
 	    return false;
 	}

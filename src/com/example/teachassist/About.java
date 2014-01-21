@@ -22,6 +22,4 @@ public class About extends Activity {
 		git.setText(Html.fromHtml(text));
 	}
 
-
-
 }

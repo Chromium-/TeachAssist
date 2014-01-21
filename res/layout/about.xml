@@ -11,26 +11,27 @@
     android:src="@drawable/ta" />
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="TeachAssist - Version 0.1"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:layout_marginTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="TeachAssist - Version 0.1"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Created by Priyesh Patel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:layout_marginTop="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="Created by Priyesh Patel"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <TextView
-        android:id="@+id/git"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/github"
-        android:textAppearance="?android:attr/textAppearanceMedium" />        
+    android:id="@+id/git"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="@string/github"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+          
 </LinearLayout>

@@ -51,7 +51,6 @@ public class Browser extends Activity{
 
             @Override
             public void onLoadResource (WebView view, String url) {
-                //show progress bar
             	loading.setMessage("Loading...");
             	loading.show();
             	loading.setCanceledOnTouchOutside(false);
