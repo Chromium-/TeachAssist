@@ -83,4 +83,23 @@ public class Browser extends Activity{
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.browsermenu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem) {
+		if (menuItem.getItemId() == R.id.menu_refresh) {
+	         refresh();
+	         return true;
+	    }
+	    return false;
+	}
+	
+    private void refresh() {
+    	web.reload();
+    }
 }

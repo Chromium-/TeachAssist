@@ -1,8 +1,20 @@
 package com.example.teachassist;
 
+import java.io.IOException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.w3c.dom.Document;
+
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.InputType;
@@ -78,6 +90,7 @@ public class MainActivity extends Activity {
 				    Toast.makeText(getApplicationContext(), "Please enter a username and password",
 				    Toast.LENGTH_SHORT).show();					
 				}
+
 			}
 		});
 				
@@ -101,8 +114,8 @@ public class MainActivity extends Activity {
 			return true;
 		}
 	    return false;
-	}
-	
+	}   
+    
     private void openAbout() {
     	Intent about = new Intent(MainActivity.this, About.class);
 		startActivity(about);
