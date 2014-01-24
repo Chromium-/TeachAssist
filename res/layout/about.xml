@@ -15,7 +15,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:text="TeachAssist - Version 0.2"
+    android:text="TeachAssist - Version 0.3"
     android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -31,7 +31,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:text="@string/github"
+    android:text="Source Code"
     android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+   <TextView
+    android:id="@+id/request"
+    android:layout_marginTop="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="Make a feature request or send a bug report"
+    android:textSize="15dp" />    
           
 </LinearLayout>

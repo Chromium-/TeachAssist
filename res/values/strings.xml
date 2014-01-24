@@ -2,7 +2,5 @@
 <resources>
 
     <string name="app_name">TeachAssist</string>
-
-    <string name="github">&lt;a href=\&quot;https://github.com/Chromium-/TeachAssist\&quot;&gt; Source Code &lt;/a> </string>
     
 </resources>

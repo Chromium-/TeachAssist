@@ -27,9 +27,10 @@ public class Browser extends Activity{
 		
         web = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = web.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(true);        
         web.getSettings().setSaveFormData(false);
         web.getSettings().setSavePassword(false);
+        web.getSettings().setLoadsImagesAutomatically(false);
         web.getSettings().setUserAgentString("Mozilla/5.0 " +
                 "(Windows NT 6.2; " +
                 "WOW64) AppleWebKit/537.31 " +
@@ -64,11 +65,16 @@ public class Browser extends Activity{
             	
               String username=MainActivity.usernameString;
               String password=MainActivity.passwordString;
-               
-              view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"+username+"'");
-              view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'");
-              view.loadUrl("javascript:document.createElement('form').submit.apply( document.getElementById('loginForm') );");
+                            
+              //Javascript commands
+              view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"+username+"'"); //add username to textfield
+              view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"+password+"'"); //add password to textfield
+              view.loadUrl("javascript:document.createElement('form').submit.apply( document.getElementById('loginForm') );"); //submit page
               
+              //remove unnecessary objects on page
+              view.loadUrl("javascript:var tables = document.getElementsByTagName('table'); for(var i = 0; i < tables.length; i++){if(tables[i].getAttribute('width') == '95%' || '100%'){tables[i].parentNode.removeChild(tables[i]);}}"); //remove tables
+              view.loadUrl("javascript:var bottombox = document.getElementsByClassName('red_border_message'); for(m=0; m < bottombox.length; m++) {bottombox[m].innerHTML = ''}"); //remove bottom box
+
               if (loading.isShowing()) {
             	  loading.dismiss();
               }
@@ -77,7 +83,7 @@ public class Browser extends Activity{
          });
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
