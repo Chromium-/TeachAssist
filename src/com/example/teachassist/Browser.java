@@ -26,8 +26,9 @@ public class Browser extends Activity{
 		setContentView(R.layout.browser);
 		
         web = (WebView) findViewById(R.id.webview);
-        WebSettings webSettings = web.getSettings();
-        webSettings.setJavaScriptEnabled(true);        
+        web.clearHistory();
+        web.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        web.getSettings().setJavaScriptEnabled(true);        
         web.getSettings().setSaveFormData(false);
         web.getSettings().setSavePassword(false);
         web.getSettings().setLoadsImagesAutomatically(false);
@@ -37,8 +38,6 @@ public class Browser extends Activity{
                 "(KHTML, like Gecko) Chrome/20 " +
                 "Safari/537.31");
 
-        web.clearCache(true);
-        web.clearHistory();
         
         CookieSyncManager.createInstance(this);
         CookieManager cookieManager = CookieManager.getInstance();
@@ -80,10 +79,16 @@ public class Browser extends Activity{
               }
               
             }
+            
          });
 
 	}
 	
+    @Override
+    public void onBackPressed() {
+            web.goBack();
+    }
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
