@@ -3,6 +3,7 @@ package com.example.teachassist;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,7 +87,13 @@ public class Browser extends Activity{
 	
     @Override
     public void onBackPressed() {
+    	if (web.canGoBack()==true){
             web.goBack();
+    	}
+    	else if (web.canGoBack()==false){
+    		Intent main = new Intent(Browser.this, MainActivity.class);
+    		startActivity(main);
+    	}
     }
     
 	@Override
