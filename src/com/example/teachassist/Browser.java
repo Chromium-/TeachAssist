@@ -90,7 +90,7 @@ public class Browser extends Activity{
     	if (web.canGoBack()==true){
             web.goBack();
     	}
-    	else if (web.canGoBack()==false){
+    	else if (web.canGoBack()!=true){
     		Intent main = new Intent(Browser.this, MainActivity.class);
     		startActivity(main);
     	}
