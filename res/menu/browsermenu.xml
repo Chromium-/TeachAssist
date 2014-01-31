@@ -3,7 +3,13 @@
     <item
         android:id="@+id/menu_refresh"
         android:showAsAction="always"
+        android:orderInCategory="2"        
+        android:icon="@drawable/ic_action_refresh"/>
+        
+    <item
+        android:id="@+id/menu_home"
+        android:showAsAction="always"
         android:orderInCategory="1"        
-        android:title="Refresh"/>
+        android:icon="@drawable/ic_action_home"/>
         
 </menu>

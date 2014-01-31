@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class Browser extends Activity{
 	
@@ -74,6 +76,11 @@ public class Browser extends Activity{
               //remove unnecessary objects on page
               view.loadUrl("javascript:var tables = document.getElementsByTagName('table'); for(var i = 0; i < tables.length; i++){if(tables[i].getAttribute('width') == '95%' || '100%'){tables[i].parentNode.removeChild(tables[i]);}}"); //remove tables
               view.loadUrl("javascript:var bottombox = document.getElementsByClassName('red_border_message'); for(m=0; m < bottombox.length; m++) {bottombox[m].innerHTML = ''}"); //remove bottom box
+              view.loadUrl("javascript:document.body.innerHTML = document.body.innerHTML.replace( /Courses listed with a./g, '');");
+              view.loadUrl("javascript:document.body.innerHTML = document.body.innerHTML.replace( /current mark/g, '');");
+              view.loadUrl("javascript:document.body.innerHTML = document.body.innerHTML.replace( /have reports that are available for viewing./g, '');");
+              view.loadUrl("javascript:document.body.innerHTML = document.body.innerHTML.replace( /Click on the /g, '');");
+              view.loadUrl("javascript:document.body.innerHTML = document.body.innerHTML.replace( /to view that specific report./g, '');");
 
               if (loading.isShowing()) {
             	  loading.dismiss();
@@ -90,10 +97,6 @@ public class Browser extends Activity{
     	if (web.canGoBack()==true){
             web.goBack();
     	}
-    	else if (web.canGoBack()!=true){
-    		Intent main = new Intent(Browser.this, MainActivity.class);
-    		startActivity(main);
-    	}
     }
     
 	@Override
@@ -109,6 +112,11 @@ public class Browser extends Activity{
 	         refresh();
 	         return true;
 	    }
+		else if (menuItem.getItemId() == R.id.menu_home) {
+			Intent main = new Intent(Browser.this, MainActivity.class);
+		    startActivity(main);
+		    return true;
+	    }		
 	    return false;
 	}
 	
