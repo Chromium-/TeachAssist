@@ -1,5 +1,8 @@
 package com.example.teachassist;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -28,6 +31,14 @@ public class Browser extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browser);
 		
+		// Look up the AdView as a resource and load a request.
+	    AdView adView = (AdView)this.findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder()
+	    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)        // All emulators
+	    .addTestDevice("2797F5D9304B6B3A15771A0519A4F687")  // HTC Desire
+	    .build();
+	    adView.loadAd(adRequest);
+	    
         web = (WebView) findViewById(R.id.webview);
         web.clearHistory();
         web.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
