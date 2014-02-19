@@ -13,25 +13,12 @@ import android.widget.TextView;
 
 public class About extends Activity {
 
-	//TextView git, request;
 	Button source, contact, download;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about);
-		
-/*		git = (TextView)findViewById(R.id.git);
-		git.setClickable(true);
-		git.setMovementMethod(LinkMovementMethod.getInstance());
-		String gitLink = "<a href='https://github.com/Chromium-/TeachAssist'> Source Code</a>";
-		git.setText(Html.fromHtml(gitLink));
-		
-		request = (TextView)findViewById(R.id.request);
-		request.setClickable(true);
-		request.setMovementMethod(LinkMovementMethod.getInstance());
-		String emailLink = "<a href='mailto:priyesh.96@hotmail.com'> Make a feature request or send a bug report</a>";
-		request.setText(Html.fromHtml(emailLink)); */
+		setContentView(R.layout.about);		
 
 		source = (Button) findViewById(R.id.bSource);
 		

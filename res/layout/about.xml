@@ -26,24 +26,6 @@
     android:text="Created by Priyesh Patel"
     android:textAppearance="?android:attr/textAppearanceMedium" />
     
- <!--  <TextView
-    android:id="@+id/git"
-    android:layout_marginTop="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Source Code"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-   <TextView
-    android:id="@+id/request"
-    android:layout_marginTop="5dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Make a feature request or send a bug report"
-    android:textSize="15dp" />    -->
-
    <Button
     android:id="@+id/bSource"
     android:layout_marginTop="20dp"
