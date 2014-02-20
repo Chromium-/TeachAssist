@@ -17,8 +17,8 @@ import android.widget.Toast;
 public class About extends Activity {
 
 	Button source, contact, download;
-	double latestVersion, installedVersionValue;
-	String installedVersion;
+	String installedVersion; //version num taken from manifest. can only be declared as string
+	double latestVersion, installedVersionValue; //cast the string above into a double	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class About extends Activity {
 
 		source = (Button) findViewById(R.id.bSource);
 		
-		source.setOnClickListener(new OnClickListener() {
+		source.setOnClickListener(new OnClickListener() { //open git repo of this app
 		    public void onClick(View v) {
 		        Intent downloadFromServer = new Intent();
 		        downloadFromServer.setAction(Intent.ACTION_VIEW);
@@ -39,7 +39,7 @@ public class About extends Activity {
 		
 		contact = (Button) findViewById(R.id.bContact);
 		
-		contact.setOnClickListener(new OnClickListener() {
+		contact.setOnClickListener(new OnClickListener() { //open email intent
 		    public void onClick(View v) {
 		        Intent downloadFromServer = new Intent();
 		        downloadFromServer.setAction(Intent.ACTION_VIEW);
@@ -50,11 +50,11 @@ public class About extends Activity {
 		});
 		
 		
-        try {
-            PackageInfo appInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            installedVersion = appInfo.versionName;
+        try { //Save current version from manifest into variable
+            PackageInfo appInfo = getPackageManager().getPackageInfo(getPackageName(), 0); 
+            installedVersion = appInfo.versionName; 
         } catch (PackageManager.NameNotFoundException e) {
-            // Handle exception
+            
         }   
         
         //Latest version available on my server. Must update this value for each new release
@@ -75,7 +75,7 @@ public class About extends Activity {
 		    		downloadFromServer.setData(Uri.parse("http://priyeshserver.tk/Files/TeachAssist/TeachAssist-" + latestVersion + ".apk"));
 		    		startActivity(downloadFromServer);
 		    	}
-		    	else if (installedVersionValue==latestVersion) { //If user clicks the update button while they already have the latest, let them no what's up
+		    	else if (installedVersionValue==latestVersion) { //If user clicks the update button while they already have the latest, let them know what's up
 				    Toast.makeText(getApplicationContext(), "You are already running the latest version (" + installedVersionValue +")",
 				    Toast.LENGTH_LONG).show();	
 		    	}

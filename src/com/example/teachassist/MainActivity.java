@@ -113,12 +113,12 @@ public class MainActivity extends Activity {
 	    return false;
 	}   
     
-    private void openAbout() {
+    private void openAbout() { //open about section
     	Intent about = new Intent(MainActivity.this, About.class);
 		startActivity(about);
     }
     
-    private void exit() {
+    private void exit() { //exit app
     	Intent exit = new Intent(Intent.ACTION_MAIN);
     	exit.addCategory(Intent.CATEGORY_HOME);
     	exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
