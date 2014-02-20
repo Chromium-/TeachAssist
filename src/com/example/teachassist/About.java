@@ -17,9 +17,8 @@ import android.widget.Toast;
 public class About extends Activity {
 
 	Button source, contact, download;
-	double latestVersion;
+	double latestVersion, installedVersionValue;
 	String installedVersion;
-	double installedVersionValue;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +81,6 @@ public class About extends Activity {
 		    	}
 		    }
 		}); 
-		
-		
 		
 	}
 
