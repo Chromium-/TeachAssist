@@ -38,102 +38,103 @@ public class About extends Activity {
 	double latestVersion, installedVersionValue; //cast the string above into a double	
 	String latestOnServerString;
 	double latestOnServerValue;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);		
 
 		source = (Button) findViewById(R.id.bSource);
-		
+
 		source.setOnClickListener(new OnClickListener() { //open git repo of this app
-		    public void onClick(View v) {
-		        Intent downloadFromServer = new Intent();
-		        downloadFromServer.setAction(Intent.ACTION_VIEW);
-		        downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
-		        downloadFromServer.setData(Uri.parse("https://github.com/Chromium-/TeachAssist"));
-		        startActivity(downloadFromServer);
-		    }
+			public void onClick(View v) {
+				Intent downloadFromServer = new Intent();
+				downloadFromServer.setAction(Intent.ACTION_VIEW);
+				downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
+				downloadFromServer.setData(Uri.parse("https://github.com/Chromium-/TeachAssist"));
+				startActivity(downloadFromServer);
+			}
 		});
-		
+
 		contact = (Button) findViewById(R.id.bContact);
-		
+
 		contact.setOnClickListener(new OnClickListener() { //open email intent
-		    public void onClick(View v) {
-		        Intent downloadFromServer = new Intent();
-		        downloadFromServer.setAction(Intent.ACTION_VIEW);
-		        downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
-		        downloadFromServer.setData(Uri.parse("mailto:priyesh.96@hotmail.com"));
-		        startActivity(downloadFromServer);
-		    }
+			public void onClick(View v) {
+				Intent downloadFromServer = new Intent();
+				downloadFromServer.setAction(Intent.ACTION_VIEW);
+				downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
+				downloadFromServer.setData(Uri.parse("mailto:priyesh.96@hotmail.com"));
+				startActivity(downloadFromServer);
+			}
 		});
-		
-        try { //Save current version from manifest into variable
-            PackageInfo appInfo = getPackageManager().getPackageInfo(getPackageName(), 0); 
-            installedVersion = appInfo.versionName; 
-        } 
-        catch (PackageManager.NameNotFoundException e) {    
-        }   
-		
+
+		try { //Save current version from manifest into variable
+			PackageInfo appInfo = getPackageManager().getPackageInfo(getPackageName(), 0); 
+			installedVersion = appInfo.versionName; 
+		} 
+		catch (PackageManager.NameNotFoundException e) {    
+		}   
+
 		//Convert string value of installed version to double so that it can be compared with value of latest version		
 		installedVersionValue = Double.parseDouble(installedVersion); 
-			
-		download = (Button) findViewById(R.id.bDownload);
-			
-		download.setOnClickListener(new OnClickListener() {
-		    public void onClick(View v) {
-		    	
-		    	final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
-		    		   protected String doInBackground(Object... o) {
-		    		        try {
-		    		            URL site = new URL("http://priyeshserver.tk/Files/TeachAssist/latest.txt");
-		    		            Scanner s = new Scanner(site.openStream());
-		    		            return s.nextLine();
-		    		        }
-		    		        catch(MalformedURLException e) { 
-		    		            throw new RuntimeException("Incorrect URL", e);
-		    		        }
-		    		        catch(IOException e) {
-		    		            throw new RuntimeException("Can't fetch file content from url", e);
-		    		        }   
-		    		   }
 
-		    		   protected void onPostExecute(String latestOnServerString) {
-		    		       
-		   			    	latestOnServerValue = Double.parseDouble(latestOnServerString);
-					    	
-					    	if (installedVersionValue<latestOnServerValue) { //If latest version available on server is higher than installed version
-				    			   
-					    		AlertDialog.Builder builder = new AlertDialog.Builder(About.this);
-				    			   builder.setMessage("Version " + latestOnServerValue + " was found on the server.\n\nWould you like to install it?")
-				    			   	  .setTitle ("Update available")
-				    			      .setCancelable(false)
-				    			      .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-				    			          public void onClick(DialogInterface dialog, int id) {
-									    	Intent downloadFromServer = new Intent();
-									    	downloadFromServer.setAction(Intent.ACTION_VIEW);
-									    	downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
-									    	downloadFromServer.setData(Uri.parse("http://priyeshserver.tk/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
-									    	startActivity(downloadFromServer);
-				    			          }
-				    			      })
-				    			      .setNegativeButton("No", new DialogInterface.OnClickListener() {
-				    			          public void onClick(DialogInterface dialog, int id) {
-				    			               dialog.cancel();
-				    			          }
-				    			      });
-				    			   AlertDialog updateAlert = builder.create();
-				    			   updateAlert.show();					    				    		
-					    	}
-					    	
-					    	else if (installedVersionValue==latestOnServerValue) { //If user clicks the update button while they already have the latest, let them know what's up
-							    Toast.makeText(getApplicationContext(), "No update found.\nYou are on the latest version: (" + installedVersionValue + ")",
-							    Toast.LENGTH_LONG).show();	
-					    	}					    	
-		    		  }		    		   
-		    	};
-		        task.execute();			    		
-		    }	    
+		download = (Button) findViewById(R.id.bDownload);
+
+		download.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+				final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
+					protected String doInBackground(Object... o) {
+						try {
+							URL site = new URL("http://priyeshserver.tk/Files/TeachAssist/latest.txt");
+							Scanner s = new Scanner(site.openStream());
+							return s.nextLine();
+						}
+						catch(MalformedURLException e) { 
+							throw new RuntimeException("Incorrect URL", e);
+						}
+						catch(IOException e) {
+							throw new RuntimeException("Can't fetch file content from url", e);
+						}   
+					}
+
+					protected void onPostExecute(String latestOnServerString) {
+
+						latestOnServerValue = Double.parseDouble(latestOnServerString);
+
+						if (installedVersionValue<latestOnServerValue) { 
+							//If latest version available on server is higher than installed version
+							AlertDialog.Builder builder = new AlertDialog.Builder(About.this);
+							builder.setMessage("Version " + latestOnServerValue + " was found on the server.\n\nWould you like to install it?")
+							.setTitle ("Update available")
+							.setCancelable(false)
+							.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									Intent downloadFromServer = new Intent();
+									downloadFromServer.setAction(Intent.ACTION_VIEW);
+									downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
+									downloadFromServer.setData(Uri.parse("http://priyeshserver.tk/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
+									startActivity(downloadFromServer);
+								}
+							})
+							.setNegativeButton("No", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+								}
+							});
+							AlertDialog updateAlert = builder.create();
+							updateAlert.show();					    				    		
+						}
+
+						else if (installedVersionValue==latestOnServerValue) { 
+						//If user clicks the update button while they already have the latest, let them know what's up
+							Toast.makeText(getApplicationContext(), "No update found.\nYou are on the latest version: (" + installedVersionValue + ")",
+									Toast.LENGTH_LONG).show();	
+						}					    	
+					}		    		   
+				};
+				task.execute();			    		
+			}	    
 		}); 					
 	}
 }
