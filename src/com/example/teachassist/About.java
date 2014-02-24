@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -66,21 +68,16 @@ public class About extends Activity {
 		    }
 		});
 		
-		
         try { //Save current version from manifest into variable
             PackageInfo appInfo = getPackageManager().getPackageInfo(getPackageName(), 0); 
             installedVersion = appInfo.versionName; 
-        } catch (PackageManager.NameNotFoundException e) {
-            
+        } 
+        catch (PackageManager.NameNotFoundException e) {    
         }   
-        
-        //Latest version available on my server. Must update this value for each new release
-		//latestVersion = 0.5;
 		
 		//Convert string value of installed version to double so that it can be compared with value of latest version		
 		installedVersionValue = Double.parseDouble(installedVersion); 
-		
-		
+			
 		download = (Button) findViewById(R.id.bDownload);
 			
 		download.setOnClickListener(new OnClickListener() {
@@ -102,36 +99,41 @@ public class About extends Activity {
 		    		   }
 
 		    		   protected void onPostExecute(String latestOnServerString) {
-		    		       Toast.makeText(getApplicationContext(), "Latest available version is: " + latestOnServerString,
-		    		        Toast.LENGTH_LONG).show();  
 		    		       
 		   			    	latestOnServerValue = Double.parseDouble(latestOnServerString);
 					    	
-					    	if (installedVersionValue<latestOnServerValue) { //If latest version available on server is greater than installed version, download the latest
-					    		Intent downloadFromServer = new Intent();
-					    		downloadFromServer.setAction(Intent.ACTION_VIEW);
-					    		downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
-					    		downloadFromServer.setData(Uri.parse("http://priyeshserver.tk/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
-					    		startActivity(downloadFromServer);
+					    	if (installedVersionValue<latestOnServerValue) { //If latest version available on server is higher than installed version
+				    			   
+					    		AlertDialog.Builder builder = new AlertDialog.Builder(About.this);
+				    			   builder.setMessage("Version " + latestOnServerValue + " was found on the server.\n\nWould you like to install it?")
+				    			   	  .setTitle ("Update available")
+				    			      .setCancelable(false)
+				    			      .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				    			          public void onClick(DialogInterface dialog, int id) {
+									    	Intent downloadFromServer = new Intent();
+									    	downloadFromServer.setAction(Intent.ACTION_VIEW);
+									    	downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
+									    	downloadFromServer.setData(Uri.parse("http://priyeshserver.tk/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
+									    	startActivity(downloadFromServer);
+				    			          }
+				    			      })
+				    			      .setNegativeButton("No", new DialogInterface.OnClickListener() {
+				    			          public void onClick(DialogInterface dialog, int id) {
+				    			               dialog.cancel();
+				    			          }
+				    			      });
+				    			   AlertDialog updateAlert = builder.create();
+				    			   updateAlert.show();					    				    		
 					    	}
+					    	
 					    	else if (installedVersionValue==latestOnServerValue) { //If user clicks the update button while they already have the latest, let them know what's up
-							    Toast.makeText(getApplicationContext(), "You are already running the latest version (" + installedVersionValue +") Latest on server = " + latestOnServerValue,
+							    Toast.makeText(getApplicationContext(), "No update found.\nYou are on the latest version: (" + installedVersionValue + ")",
 							    Toast.LENGTH_LONG).show();	
-					    	}		
-		    		       
-		    		   }
-		    		};
-		    		task.execute();	
-		    		
-    	
-		    	
-
-		    	
-		    }
-		}); 
-		
-		
-		
+					    	}					    	
+		    		  }		    		   
+		    	};
+		        task.execute();			    		
+		    }	    
+		}); 					
 	}
-
 }
