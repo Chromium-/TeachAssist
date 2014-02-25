@@ -1,18 +1,9 @@
 package com.example.teachassist;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,12 +14,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class About extends Activity {
@@ -86,7 +74,7 @@ public class About extends Activity {
 				final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
 					protected String doInBackground(Object... o) {
 						try {
-							URL site = new URL("http://priyeshserver.tk/Files/TeachAssist/latest.txt");
+							URL site = new URL("http://70.49.210.232/Files/TeachAssist/latest.txt");
 							Scanner s = new Scanner(site.openStream());
 							return s.nextLine();
 						}
@@ -113,7 +101,7 @@ public class About extends Activity {
 									Intent downloadFromServer = new Intent();
 									downloadFromServer.setAction(Intent.ACTION_VIEW);
 									downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
-									downloadFromServer.setData(Uri.parse("http://priyeshserver.tk/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
+									downloadFromServer.setData(Uri.parse("http://70.49.210.232/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
 									startActivity(downloadFromServer);
 								}
 							})
@@ -128,8 +116,18 @@ public class About extends Activity {
 
 						else if (installedVersionValue==latestOnServerValue) { 
 						//If user clicks the update button while they already have the latest, let them know what's up
-							Toast.makeText(getApplicationContext(), "No update found.\nYou are on the latest version: (" + installedVersionValue + ")",
-									Toast.LENGTH_LONG).show();	
+							AlertDialog.Builder builder2 = new AlertDialog.Builder(About.this);
+							builder2.setMessage("You are already on the latest version:" + installedVersionValue)
+							.setTitle ("No update available")
+							.setCancelable(false)
+							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+								}
+							});
+							AlertDialog noUpdateAlert = builder2.create();
+							noUpdateAlert.show();	
+							
 						}					    	
 					}		    		   
 				};
