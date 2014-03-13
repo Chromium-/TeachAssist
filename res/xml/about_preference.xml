@@ -1,0 +1,34 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceScreen
+        android:key="ta_logo"
+        android:layout="@layout/ta_banner" />
+
+    <PreferenceCategory android:title="Development" >
+        <Preference
+            android:summary="This app is created by Priyesh Patel"
+            android:title="Programmer" />
+        <Preference
+            android:key="source"
+            android:summary="View the code of this app on Github"
+            android:title="Source" />
+        <Preference
+            android:key="contact"
+            android:summary="Send the developer an email"
+            android:title="Contact" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="About" >
+        <com.example.teachassist.VersionPreference android:title="Version" />
+
+        <Preference
+            android:key="update"
+            android:summary="Check for new updates"
+            android:title="Update" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Disclaimer" >
+        <Preference android:summary="This app is in no way affiliated with Teach Assist. Names, logos, and any other trade marked proprietary property found within the app belong to the rightful owners, Teach Assist Foundation and the York Region District School Board." />
+    </PreferenceCategory>
+
+</PreferenceScreen>
