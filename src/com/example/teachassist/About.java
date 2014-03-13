@@ -1,13 +1,10 @@
 package com.example.teachassist;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,18 +16,11 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
 
 public class About extends PreferenceActivity {
 
-	//Button source, contact, download;
-	String installedVersion; //version num taken from manifest. can only be declared as string
-	double latestVersion, installedVersionValue; //cast the string above into a double	
-	String latestOnServerString;
-	double latestOnServerValue;
+	String installedVersion, latestOnServerString;
+	double latestVersion, installedVersionValue, latestOnServerValue;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +63,6 @@ public class About extends PreferenceActivity {
 
 		//Convert string value of installed version to double so that it can be compared with value of latest version		
 		installedVersionValue = Double.parseDouble(installedVersion); 
-
-		//download = (Button) findViewById(R.id.bDownload);
 		
 		Preference update = (Preference) findPreference("update");
 		update.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -90,8 +78,7 @@ public class About extends PreferenceActivity {
 							throw new RuntimeException("Noooo crashhhsdhfhdfhsdhf", e2);
 
 						} 
-					}
-					
+					}					
 					
 					protected void onPostExecute(String latestOnServerString) {
 
@@ -133,8 +120,7 @@ public class About extends PreferenceActivity {
 								}
 							});
 							AlertDialog noUpdateAlert = builder2.create();
-							noUpdateAlert.show();	
-							
+							noUpdateAlert.show();								
 						}					    	
 					}		    		   
 				};
@@ -142,72 +128,6 @@ public class About extends PreferenceActivity {
 				return true; 
 			}
 		});
-		
-	/*	download.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-
-				final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
-					protected String doInBackground(Object... o) {
-						try {
-							URL site = new URL("http://70.49.210.232/Files/TeachAssist/latest.txt");
-							Scanner s = new Scanner(site.openStream());
-							return s.nextLine();
-						}
-						catch(MalformedURLException e) { 
-							throw new RuntimeException("Incorrect URL", e);
-						}
-						catch(IOException e) {
-							throw new RuntimeException("Can't fetch file content from url", e);
-						}   
-					}
-
-					protected void onPostExecute(String latestOnServerString) {
-
-						latestOnServerValue = Double.parseDouble(latestOnServerString);
-
-						if (installedVersionValue<latestOnServerValue) { 
-							//If latest version available on server is higher than installed version
-							AlertDialog.Builder builder = new AlertDialog.Builder(About.this);
-							builder.setMessage("Version " + latestOnServerValue + " was found on the server.\n\nWould you like to install it?")
-							.setTitle ("Update available")
-							.setCancelable(false)
-							.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int id) {
-									Intent downloadFromServer = new Intent();
-									downloadFromServer.setAction(Intent.ACTION_VIEW);
-									downloadFromServer.addCategory(Intent.CATEGORY_BROWSABLE);
-									downloadFromServer.setData(Uri.parse("http://70.49.210.232/Files/TeachAssist/TeachAssist-" + latestOnServerValue + ".apk"));
-									startActivity(downloadFromServer);
-								}
-							})
-							.setNegativeButton("No", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int id) {
-									dialog.cancel();
-								}
-							});
-							AlertDialog updateAlert = builder.create();
-							updateAlert.show();					    				    		
-						}
-
-						else if (installedVersionValue==latestOnServerValue) { 
-						//If user clicks the update button while they already have the latest, let them know what's up
-							AlertDialog.Builder builder2 = new AlertDialog.Builder(About.this);
-							builder2.setMessage("You are already on the latest version:" + installedVersionValue)
-							.setTitle ("No update available")
-							.setCancelable(false)
-							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int id) {
-									dialog.cancel();
-								}
-							});
-							AlertDialog noUpdateAlert = builder2.create();
-							noUpdateAlert.show();	
-							
-						}					    	
-					}		    		   
-				};
-				task.execute();			    		
-			}	    
-		}); 		*/			
+			
 	}
 }
