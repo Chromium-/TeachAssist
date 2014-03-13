@@ -2,6 +2,8 @@ package com.example.teachassist;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import android.app.ActionBar;
@@ -16,11 +18,15 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.util.Log;
+import android.widget.Toast;
 
 public class About extends PreferenceActivity {
 
 	String installedVersion, latestOnServerString;
 	double latestVersion, installedVersionValue, latestOnServerValue;
+	
+	List<Exception> exceptions = new ArrayList<Exception>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,21 +73,28 @@ public class About extends PreferenceActivity {
 		Preference update = (Preference) findPreference("update");
 		update.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
+				
 				final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
 					protected String doInBackground(Object... o) {
+						String desperateVersion = "0.6";
 						try {
 							URL site = new URL("http://70.49.210.232/Files/TeachAssist/latest.txt");
 							Scanner s = new Scanner(site.openStream());
 							return s.nextLine();
 						}
-						catch(IOException e2) {
-							throw new RuntimeException("Noooo crashhhsdhfhdfhsdhf", e2);
-
-						} 
+						catch(IOException e) {							
+							//throw new RuntimeException("Noooo crashhhsdhfhdfhsdhf", ex);
+							exceptions.add(e);
+						}
+						return desperateVersion;
 					}					
 					
 					protected void onPostExecute(String latestOnServerString) {
 
+						for (Exception e : exceptions) {
+							Toast.makeText(getApplicationContext(), "site dead",
+								    Toast.LENGTH_SHORT).show();	
+						    }
 						latestOnServerValue = Double.parseDouble(latestOnServerString);
 
 						if (installedVersionValue<latestOnServerValue) { 
