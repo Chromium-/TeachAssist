@@ -3,8 +3,11 @@ package com.example.teachassist;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.InputType;
@@ -87,10 +90,8 @@ public class MainActivity extends Activity {
 				    Toast.makeText(getApplicationContext(), "Please enter a username and password",
 				    Toast.LENGTH_SHORT).show();					
 				}
-
 			}
-		});
-				
+		});				
 	}
 
 	@Override
@@ -102,11 +103,11 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
-		if (menuItem.getItemId() == R.id.menu_about) {
+		if (menuItem.getItemId() == R.id.menu_about) { //about button in actionbar
 	         openAbout();
 	         return true;
 	    }
-		else if (menuItem.getItemId() == R.id.menu_exit) {
+		else if (menuItem.getItemId() == R.id.menu_exit) { //exit button in actionbar
 			exit();
 			return true;
 		}
@@ -119,9 +120,22 @@ public class MainActivity extends Activity {
     }
     
     private void exit() { //exit app
-    	Intent exit = new Intent(Intent.ACTION_MAIN);
-    	exit.addCategory(Intent.CATEGORY_HOME);
-    	exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    	startActivity(exit);
+    	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+		builder.setMessage("Are you sure you want to exit?")
+		.setTitle ("Confirm exit")
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				System.exit(0);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog updateAlert = builder.create();
+		updateAlert.show();		
+    	
     }
 }

@@ -18,8 +18,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.util.Log;
-import android.widget.Toast;
 
 public class About extends PreferenceActivity {
 
@@ -90,10 +88,6 @@ public class About extends PreferenceActivity {
 					
 					protected void onPostExecute(String latestOnServerString) {
 
-					/*	for (Exception e : exceptions) {
-							Toast.makeText(getApplicationContext(), "site dead",
-								    Toast.LENGTH_SHORT).show();	
-						    }*/
 						latestOnServerValue = Double.parseDouble(latestOnServerString);
 
 						if (installedVersionValue<latestOnServerValue && latestOnServerValue>0 ) { 
@@ -148,14 +142,12 @@ public class About extends PreferenceActivity {
 							});
 							AlertDialog noUpdateAlert = builder3.create();
 							noUpdateAlert.show();								
-						}						
-						
+						}												
 					}		    		   
 				};
 				task.execute();	
 				return true; 
 			}
-		});
-			
+		});			
 	}
 }
