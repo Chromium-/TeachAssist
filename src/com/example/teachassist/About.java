@@ -76,28 +76,27 @@ public class About extends PreferenceActivity {
 				
 				final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
 					protected String doInBackground(Object... o) {
-						String desperateVersion = "0.6";
+						String fakeVersion = "-1";
 						try {
 							URL site = new URL("http://70.49.210.232/Files/TeachAssist/latest.txt");
 							Scanner s = new Scanner(site.openStream());
 							return s.nextLine();
 						}
 						catch(IOException e) {							
-							//throw new RuntimeException("Noooo crashhhsdhfhdfhsdhf", ex);
 							exceptions.add(e);
 						}
-						return desperateVersion;
+						return fakeVersion; //return -1, which is an invalid version, on IOException. This allows for better handling.
 					}					
 					
 					protected void onPostExecute(String latestOnServerString) {
 
-						for (Exception e : exceptions) {
+					/*	for (Exception e : exceptions) {
 							Toast.makeText(getApplicationContext(), "site dead",
 								    Toast.LENGTH_SHORT).show();	
-						    }
+						    }*/
 						latestOnServerValue = Double.parseDouble(latestOnServerString);
 
-						if (installedVersionValue<latestOnServerValue) { 
+						if (installedVersionValue<latestOnServerValue && latestOnServerValue>0 ) { 
 							//If latest version available on server is higher than installed version
 							AlertDialog.Builder builder = new AlertDialog.Builder(About.this);
 							builder.setMessage("Version " + latestOnServerValue + " was found on the server.\n\nWould you like to install it?")
@@ -134,7 +133,23 @@ public class About extends PreferenceActivity {
 							});
 							AlertDialog noUpdateAlert = builder2.create();
 							noUpdateAlert.show();								
-						}					    	
+						}
+						
+						else if (latestOnServerValue==-1) { 
+							//-1 was returned. This indicates that the server was offline causing an IOException. Explain this to the user.
+							AlertDialog.Builder builder3 = new AlertDialog.Builder(About.this);
+							builder3.setMessage("The update server is currently offline. Therefore the app was unable to make contact in order to check for newer versions. Try again later.")
+							.setTitle ("Update failed")
+							.setCancelable(false)
+							.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+								}
+							});
+							AlertDialog noUpdateAlert = builder3.create();
+							noUpdateAlert.show();								
+						}						
+						
 					}		    		   
 				};
 				task.execute();	
