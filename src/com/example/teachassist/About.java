@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -23,6 +24,8 @@ public class About extends PreferenceActivity {
 
 	String installedVersion, latestOnServerString;
 	double latestVersion, installedVersionValue, latestOnServerValue;
+	
+	static ProgressDialog loader;
 	
 	List<Exception> exceptions = new ArrayList<Exception>();
 
@@ -73,6 +76,15 @@ public class About extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				
 				final AsyncTask<Object,Object,String> task = new AsyncTask<Object,Object,String>() {
+			        @Override
+			        protected void onPreExecute() {
+			            loader = new ProgressDialog(About.this);
+			            loader.setMessage("Checking for updates...");
+			            loader.setIndeterminate(false);
+			            loader.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			            loader.setCancelable(true);
+			            loader.show();
+			        }
 					protected String doInBackground(Object... o) {
 						String fakeVersion = "-1";
 						try {
@@ -88,6 +100,7 @@ public class About extends PreferenceActivity {
 					
 					protected void onPostExecute(String latestOnServerString) {
 
+						loader.dismiss();
 						latestOnServerValue = Double.parseDouble(latestOnServerString);
 
 						if (installedVersionValue<latestOnServerValue && latestOnServerValue>0 ) { 
