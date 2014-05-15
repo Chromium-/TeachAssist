@@ -1,10 +1,12 @@
-package com.example.teachassist;
+package com.priyesh.teachassist;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import com.priyesh.teachassist.R;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package com.example.teachassist;
+package com.priyesh.teachassist;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

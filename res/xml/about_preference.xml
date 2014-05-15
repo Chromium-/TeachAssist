@@ -19,7 +19,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory android:title="About" >
-        <com.example.teachassist.VersionPreference android:title="Version" />
+        <com.priyesh.teachassist.VersionPreference android:title="Version" />
 
         <Preference
             android:key="update"

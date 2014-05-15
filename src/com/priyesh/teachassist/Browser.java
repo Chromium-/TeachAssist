@@ -1,7 +1,8 @@
-package com.example.teachassist;
+package com.priyesh.teachassist;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.priyesh.teachassist.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
