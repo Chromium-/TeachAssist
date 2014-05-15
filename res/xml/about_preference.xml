@@ -20,11 +20,6 @@
     
     <PreferenceCategory android:title="About" >
         <com.priyesh.teachassist.VersionPreference android:title="Version" />
-
-        <Preference
-            android:key="update"
-            android:summary="Check for new updates"
-            android:title="Update" />
     </PreferenceCategory>
     
     <PreferenceCategory android:title="Disclaimer" >
