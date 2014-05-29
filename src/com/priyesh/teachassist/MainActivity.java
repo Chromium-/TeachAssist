@@ -1,3 +1,21 @@
+/*   
+ * Teach Assist Android App
+ * Copyright (C) 2014 Priyesh Patel
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *  
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.priyesh.teachassist;
 
 import com.google.android.gms.ads.AdRequest;
@@ -47,6 +65,10 @@ public class MainActivity extends Activity {
 		.build();
 		adView.loadAd(adRequest);		
 
+		final boolean browser = true;
+		// True will open Browser Activity
+		// False will open Parser Activity
+
 		username = (EditText) findViewById(R.id.etUsername);
 		username.setInputType(InputType.TYPE_CLASS_TEXT);
 
@@ -84,8 +106,14 @@ public class MainActivity extends Activity {
 				}
 
 				if (usernameString.length()!=0 && passwordString.length()!=0) {
-					Intent browser = new Intent(MainActivity.this, Browser.class);
-					startActivity(browser);
+					if (browser){
+						Intent browser = new Intent(MainActivity.this, Browser.class);
+						startActivity(browser);
+					}
+					else {
+						Intent parser = new Intent(MainActivity.this, Parser.class);
+						startActivity(parser);
+					}
 				}
 				else {
 					Toast.makeText(getApplicationContext(), "Please enter a username and password",

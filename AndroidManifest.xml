@@ -32,6 +32,8 @@
         </activity>
         
         <activity android:label="@string/app_name" android:name="com.priyesh.teachassist.Browser" android:screenOrientation="portrait"/>
+    
+        <activity android:label="@string/app_name" android:name="com.priyesh.teachassist.Parser" android:screenOrientation="portrait"/>
         
         <activity
         android:name="com.priyesh.teachassist.About"
