@@ -22,11 +22,6 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="About" >
         <com.priyesh.teachassist.VersionPreference android:title="Version" />
-
-        <Preference
-            android:key="update"
-            android:summary="Check for new updates"
-            android:title="Update" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Disclaimer" >
         <Preference android:summary="This app is in no way affiliated with Teach Assist. Names, logos, and any other trade marked proprietary property found within the app belong to the rightful owners, Teach Assist Foundation and the York Region District School Board." />
